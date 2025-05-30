@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>IPv4 学習ツール - 初心者向け (HTML+JS)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>IPv4 ネットワーク学習ツール</h1>
+        <p class="subtitle">初心者向け - 段階的に学べるIPアドレス計算ツール</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('basics')">基礎知識</button>
+            <button class="tab" onclick="switchTab('calculator')">計算ツール</button>
+            <button class="tab" onclick="switchTab('practice')">練習問題</button>
+            <button class="tab" onclick="switchTab('glossary')">用語集</button>
+        </div>
+          <!-- 基礎知識タブ -->
+        <div id="basics" class="tab-content active">
+            <h2>IPv4 アドレス学習ガイド</h2>
+            
+            <div class="explanation-box">
+                <strong>📚 学習の流れ</strong><br>
+                このガイドでは、IPアドレスの基本概念を3つのステップで段階的に学びます。<br>
+                各ステップをクリックして順番に進んでください。
+            </div>
+            
+            <div class="step-indicator">
+                <div class="step active" onclick="showLesson(1)" id="step1">
+                    <div>ステップ 1</div>
+                    <small>IPアドレスの基本</small>
+                </div>
+                <div class="step locked" onclick="showLesson(2)" id="step2">
+                    <div>ステップ 2</div>
+                    <small>サブネットマスク</small>
+                </div>
+                <div class="step locked" onclick="showLesson(3)" id="step3">
+                    <div>ステップ 3</div>
+                    <small>ネットワーク計算</small>
+                </div>
+            </div>
+            
+            <!-- レッスン1: IPアドレスの基本 -->
+            <div id="lesson1" class="lesson-content active">
+                <h3>🌐 IPアドレスとは？</h3>
+                
+                <div class="explanation-box">
+                    <strong>IPアドレス</strong>は、インターネット上のコンピューターやデバイスを識別するための<strong>ユニークな住所</strong>のようなものです。<br><br>
+                    郵便番号や住所がお家を特定するように、IPアドレスはネットワーク上のデバイスを特定します。
+                </div>
+                
+                <h4>📋 IPv4アドレスの構造</h4>
+                <div class="ip-visualization">
+                    <div class="ip-octet" style="background: #6c757d;">192</div>
+                    <div style="font-size: 24px; margin: 0 10px;">.</div>
+                    <div class="ip-octet" style="background: #6c757d;">168</div>
+                    <div style="font-size: 24px; margin: 0 10px;">.</div>
+                    <div class="ip-octet" style="background: #6c757d;">1</div>
+                    <div style="font-size: 24px; margin: 0 10px;">.</div>
+                    <div class="ip-octet" style="background: #6c757d;">10</div>
+                </div>                <p style="text-align: center; margin-top: 10px;">
+                    <strong>4つの数字</strong>をドット（.）で区切った形式<br>
+                    各数字は <strong>0～255</strong> の範囲
+                </p>
+                
+                <h4>🏷️ IPアドレスの種類と分類</h4>
+                <div class="explanation-box">
+                    <strong>IPアドレスは大きく2つに分かれます：</strong><br><br>
+                    <strong>🌐 パブリックIPアドレス</strong>：インターネット上で使用される、世界中でユニークなアドレス<br>
+                    <strong>🏠 プライベートIPアドレス</strong>：家庭や企業の内部ネットワークで使用される、内部専用のアドレス
+                </div>
+                
+                <h4>📚 プライベートIPアドレスのクラス分け</h4>
+                <div class="calculation-grid" style="margin-top: 15px;">
+                    <div class="calc-item" style="background: #e8f5e8; border-left: 4px solid #28a745;">
+                        <strong>🏢 Class A (大規模ネットワーク)</strong><br>
+                        <strong>範囲：</strong> 10.0.0.0 ～ 10.255.255.255<br>
+                        <strong>サブネットマスク：</strong> /8 (255.0.0.0)<br>
+                        <strong>特徴：</strong> 企業の大規模ネットワークで使用<br>
+                        <strong>利用可能ホスト数：</strong> 約1677万台
+                    </div>
+                    <div class="calc-item" style="background: #fff3cd; border-left: 4px solid #ffc107;">
+                        <strong>🏫 Class B (中規模ネットワーク)</strong><br>
+                        <strong>範囲：</strong> 172.16.0.0 ～ 172.31.255.255<br>
+                        <strong>サブネットマスク：</strong> /12 (255.240.0.0)<br>
+                        <strong>特徴：</strong> 中規模な企業や組織で使用<br>
+                        <strong>利用可能ホスト数：</strong> 約104万台
+                    </div>
+                    <div class="calc-item" style="background: #cce5ff; border-left: 4px solid #007bff;">
+                        <strong>🏠 Class C (小規模ネットワーク)</strong><br>
+                        <strong>範囲：</strong> 192.168.0.0 ～ 192.168.255.255<br>
+                        <strong>サブネットマスク：</strong> /16 (255.255.0.0)<br>
+                        <strong>特徴：</strong> 家庭用ルーターで最も一般的<br>
+                        <strong>利用可能ホスト数：</strong> 約6万5千台
+                    </div>
+                    <div class="calc-item" style="background: #f8d7da; border-left: 4px solid #dc3545;">
+                        <strong>🔄 その他の特殊アドレス</strong><br>
+                        <strong>127.x.x.x：</strong> ループバックアドレス（自分自身）<br>
+                        <strong>169.254.x.x：</strong> リンクローカル（APIPA）<br>
+                        <strong>224.x.x.x～：</strong> マルチキャスト<br>
+                        <strong>その他：</strong> 予約済みアドレス
+                    </div>
+                </div>
+                
+                <div class="explanation-box" style="background: #d1ecf1; border-color: #bee5eb;">
+                    <strong>💡 豆知識</strong><br>
+                    家庭のWi-Fiルーターは通常、192.168.1.1や192.168.0.1のようなClass Cのプライベートアドレスを使用しています。<br>
+                    これにより、世界中の家庭で同じIPアドレスが使われても、インターネット上では衝突しないのです！
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>💡 試してみよう！</h4>
+                    <p>下の入力欄に好きな数字（0～255）を入力して、IPアドレスを作ってみましょう</p>
+                    <input type="number" class="demo-input" min="0" max="255" value="192" onchange="updateDemoIP()"> .
+                    <input type="number" class="demo-input" min="0" max="255" value="168" onchange="updateDemoIP()"> .
+                    <input type="number" class="demo-input" min="0" max="255" value="1" onchange="updateDemoIP()"> .
+                    <input type="number" class="demo-input" min="0" max="255" value="10" onchange="updateDemoIP()">
+                    
+                    <div class="demo-result" id="demoResult">
+                        作成されたIPアドレス: <strong id="demoIP">192.168.1.10</strong><br>
+                        種類: <strong id="demoIPType">プライベートIPアドレス (Class C)</strong>
+                    </div>
+                </div>
+                
+                <button class="next-step-button" onclick="completeStep(1)">
+                    ✅ 理解しました！次のステップへ →
+                </button>
+            </div>
+            
+            <!-- レッスン2: サブネットマスク -->
+            <div id="lesson2" class="lesson-content">
+                <h3>🎭 サブネットマスクとは？</h3>
+                
+                <div class="explanation-box">
+                    <strong>サブネットマスク</strong>は、IPアドレスを<strong>「ネットワーク部」と「ホスト部」</strong>に分ける<strong>境界線</strong>の役割をします。<br><br>
+                    住所で例えると「都道府県・市区町村（ネットワーク部）」と「番地・部屋番号（ホスト部）」を区別するようなものです。
+                </div>
+                
+                <h4>🔍 ネットワーク部とホスト部</h4>
+                <div class="ip-visualization">
+                    <div class="ip-octet network-part">192</div>
+                    <div class="ip-octet network-part">168</div>
+                    <div class="ip-octet network-part">1</div>
+                    <div class="ip-octet host-part">10</div>
+                </div>
+                <p style="text-align: center;">
+                    <span style="color: #28a745; font-weight: bold;">🏢 ネットワーク部：どの建物（ネットワーク）か</span><br>
+                    <span style="color: #ffc107; font-weight: bold;">🏠 ホスト部：建物の中のどの部屋（デバイス）か</span>
+                </p>
+                  <h4>📝 サブネットマスクの表現方法</h4>
+                <div class="explanation-box">
+                    <strong>2つの表現方法があります：</strong><br>
+                    1. <strong>ドット記法：</strong> 255.255.255.0<br>
+                    2. <strong>CIDR記法：</strong> /24<br><br>
+                    CIDR記法の数字は<strong>ネットワーク部のビット数</strong>を表します。<br>
+                    例：/24 = 24ビットがネットワーク部、8ビットがホスト部
+                </div>
+                
+                <h4>🔢 ビット境界とオクテット境界</h4>
+                <div class="explanation-box" style="background: #fff3cd; border-color: #ffeaa7;">
+                    <strong>重要ポイント：</strong><br>
+                    サブネットマスクは必ずしもオクテット境界（8の倍数）で区切られるとは限りません！<br>
+                    <strong>/23, /26, /29</strong>など、オクテットの途中で区切られることもよくあります。<br><br>
+                    <strong>実例：</strong><br>
+                    • <strong>/26</strong> = 26ビットがネットワーク部（3オクテット + 2ビット）<br>
+                    • <strong>/23</strong> = 23ビットがネットワーク部（2オクテット + 7ビット）
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🎯 実際のCIDRで練習してみよう！</h4>
+                    <p>様々なサブネットマスクを選んで、ビット単位での分割を理解しましょう</p>
+                    
+                    <div style="margin: 15px 0;">
+                        <label for="cidr-select"><strong>CIDR記法を選択：</strong></label><br>
+                        <select id="cidr-select" class="demo-input" style="width: 200px;" onchange="updateSubnetDemo()">
+                            <optgroup label="オクテット境界">
+                                <option value="8">/8 (255.0.0.0)</option>
+                                <option value="16">/16 (255.255.0.0)</option>
+                                <option value="24" selected>/24 (255.255.255.0)</option>
+                            </optgroup>
+                            <optgroup label="実際によく使われるCIDR">
+                                <option value="23">/23 (255.255.254.0)</option>
+                                <option value="25">/25 (255.255.255.128)</option>
+                                <option value="26">/26 (255.255.255.192)</option>
+                                <option value="27">/27 (255.255.255.224)</option>
+                                <option value="28">/28 (255.255.255.240)</option>
+                                <option value="29">/29 (255.255.255.248)</option>
+                                <option value="30">/30 (255.255.255.252)</option>
+                            </optgroup>
+                        </select>
+                    </div>                      <div class="demo-result" id="subnetDemoResult">
+                        <div id="subnetVisualization"></div>
+                        <div id="subnetBitVisualization" style="margin: 15px 0;"></div>
+                        <div id="subnetExplanation"></div>
+                    </div>
+                </div>
+                
+                <h4>🎓 なぜオクテット境界以外も使うの？</h4>
+                <div class="explanation-box" style="background: #f8f9fa; border-color: #dee2e6;">
+                    <strong>実務での理由：</strong><br>
+                    • <strong>IP アドレスの節約：</strong> /24だと254台まで、/26だと62台まで→必要な分だけ割り当て<br>
+                    • <strong>セキュリティの向上：</strong> 部署ごとに小さなネットワークに分割<br>
+                    • <strong>ブロードキャストドメインの制限：</strong> 大きなネットワークでの通信効率化<br>
+                    • <strong>階層的設計：</strong> 企業ネットワークの効率的な管理<br><br>
+                    
+                    <strong>💼 実際の使用例：</strong><br>
+                    • <strong>/30:</strong> ルーター間接続（Point-to-Point）<br>
+                    • <strong>/26:</strong> 小規模部署（最大62台）<br>
+                    • <strong>/23:</strong> 中規模オフィス（最大510台）<br>                    • <strong>/29:</strong> 小会議室（最大6台）
+                </div>
+                
+                <h4>🧮 サブネットマスクの計算方法</h4>
+                <div class="explanation-box" style="background: #e8f5e8; border-color: #c3e6cb;">
+                    <strong>ステップ1:</strong> CIDRからビット数を確認（例：/26 = 26ビット）<br>
+                    <strong>ステップ2:</strong> 32ビットから左に26ビット分を1、残りを0にする<br>
+                    <strong>ステップ3:</strong> 8ビットずつ4つのオクテットに分割<br>
+                    <strong>ステップ4:</strong> 各オクテットを10進数に変換<br><br>
+                    
+                    <strong>🔢 /26の例：</strong><br>
+                    <code style="background: #f8f9fa; padding: 4px; border-radius: 3px;">
+                    11111111.11111111.11111111.11000000<br>
+                    255     .255     .255     .192
+                    </code><br><br>
+                    
+                    <strong>計算:</strong> 最後のオクテット = 128+64 = 192
+                </div>
+                
+                <button class="next-step-button" onclick="completeStep(2)">
+                    ✅ サブネットマスクを理解しました！次へ →
+                </button>
+            </div>
+            
+            <!-- レッスン3: ネットワーク計算 -->
+            <div id="lesson3" class="lesson-content">
+                <h3>🧮 ネットワーク計算をしてみよう！</h3>
+                
+                <div class="explanation-box">
+                    IPアドレスとサブネットマスクがわかると、以下の情報を計算できます：<br>
+                    • <strong>ネットワークアドレス</strong>：そのネットワーク全体の住所<br>
+                    • <strong>ブロードキャストアドレス</strong>：ネットワーク内の全デバイスに送信する特別な住所<br>
+                    • <strong>利用可能なホスト数</strong>：何台のデバイスを接続できるか
+                </div>
+                
+                <div class="interactive-demo">
+                    <h4>🎯 実際に計算してみよう！</h4>
+                    <p>IPアドレスとサブネットマスクを入力して、ネットワーク情報を計算してみましょう</p>
+                    
+                    <div style="margin: 15px 0;">
+                        <label>IPアドレス:</label><br>
+                        <input type="text" class="demo-input" style="width: 200px;" value="192.168.1.100" id="calcIP">
+                    </div>
+                    
+                    <div style="margin: 15px 0;">
+                        <label>サブネットマスク:</label><br>
+                        <input type="text" class="demo-input" style="width: 200px;" value="/24" id="calcSubnet">
+                    </div>
+                    
+                    <button class="practice-button" onclick="performBasicCalculation()">計算実行</button>
+                    
+                    <div class="demo-result" id="calcResult" style="display: none;">
+                        <h4>📊 計算結果</h4>
+                        <div id="calcDetails"></div>
+                    </div>
+                </div>
+                
+                <div class="explanation-box" style="background: #d1ecf1; border-color: #bee5eb;">
+                    <strong>🎓 おめでとうございます！</strong><br>
+                    IPv4アドレスの基本を理解しました。次は「計算ツール」タブでより詳しい機能を試してみましょう！
+                </div>
+                
+                <button class="practice-button" onclick="switchTab('calculator')">
+                    🚀 計算ツールで詳しく練習する →
+                </button>
+            </div>
+        </div>
+        
+        <!-- 計算ツールタブ -->
+        <div id="calculator" class="tab-content">
+            <h2>ネットワーク計算ツール</h2>
+            
+            <form id="ipForm">
+                <div class="input-group">
+                    <label for="ip_address">
+                        IPアドレス
+                        <span class="help-icon tooltip" data-tooltip="例: 192.168.1.10 のように入力してください">?</span>
+                    </label>
+                    <input type="text" id="ip_address" name="ip_address" value="192.168.1.10" required>
+                </div>
+                <div class="input-group">
+                    <label for="subnet_mask">
+                        サブネットマスク
+                        <span class="help-icon tooltip" data-tooltip="255.255.255.0 または /24 の形式で入力できます">?</span>
+                    </label>
+                    <input type="text" id="subnet_mask" name="subnet_mask" value="255.255.255.0" required>
+                </div>
+                <button type="submit">計算する</button>
+            </form>
+
+            <div id="errorDisplay" class="error" style="display: none;"></div>
+            <div id="successDisplay" class="success" style="display: none;"></div>
+            
+            <div id="resultsDisplay" class="results" style="display: none;">
+                <h2>計算結果</h2>
+                
+                <div class="visual-representation">
+                    <h3>視覚的な表現</h3>
+                    <div id="ipVisualization"></div>
+                </div>
+                
+                <p><strong>入力IPアドレス:</strong> <span id="resIpAddress"></span></p>
+                <p><strong>IPアドレスの種類:</strong> <span id="resIpType"></span></p>
+                <p><strong>入力サブネットマスク:</strong> <span id="resSubnetInput"></span></p>
+                <hr>
+                <p><strong>ネットワークアドレス:</strong> <span id="resNetworkAddress"></span></p>
+                <p><strong>ブロードキャストアドレス:</strong> <span id="resBroadcastAddress"></span></p>
+                <p><strong>計算されたサブネットマスク:</strong> <span id="resSubnetMask"></span></p>
+                <p><strong>CIDR表記:</strong> <span id="resCidr"></span></p>
+                <p><strong>利用可能なホストアドレス範囲:</strong> <span id="resHostRange"></span></p>
+                <p><strong>利用可能なホスト数:</strong> <span id="resNumHosts"></span></p>
+                <p><strong>入力IPのネットワーク内有効性:</strong> <span id="resIpInNetwork"></span></p>
+            </div>
+        </div>
+          <!-- 練習問題タブ -->
+        <div id="practice" class="tab-content">
+            <h2>練習問題</h2>
+            <p>段階的に難易度が上がる練習問題で、理解を深めましょう！</p>
+            
+            <div class="practice-level-selector">
+                <h3>📊 レベルを選択してください</h3>
+                <div class="level-buttons">
+                    <button class="level-button active" onclick="setQuizLevel('basic')" id="level-basic">
+                        🌱 基礎レベル
+                        <small>IPアドレスとサブネットの基本</small>
+                    </button>
+                    <button class="level-button" onclick="setQuizLevel('intermediate')" id="level-intermediate">
+                        🌿 中級レベル
+                        <small>実際のネットワーク計算</small>
+                    </button>
+                    <button class="level-button" onclick="setQuizLevel('advanced')" id="level-advanced">
+                        🌳 上級レベル
+                        <small>複雑なサブネット設計</small>
+                    </button>
+                    <button class="level-button" onclick="setQuizLevel('real-world')" id="level-real-world">
+                        🏢 実務レベル
+                        <small>実際の業務シナリオ</small>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="quiz-stats" id="quizStats">
+                <div class="stat-item">
+                    <span class="stat-label">正解数:</span>
+                    <span class="stat-value" id="correctCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">問題数:</span>
+                    <span class="stat-value" id="totalCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">正解率:</span>
+                    <span class="stat-value" id="accuracyRate">0%</span>
+                </div>
+            </div>
+            
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <div class="quiz-level-display" id="currentLevelDisplay">基礎レベル</div>
+                    <div class="quiz-number" id="quizNumber">問題 1</div>
+                </div>
+                <div class="quiz-question" id="quizQuestion">問題を生成中...</div>
+                <div class="quiz-options" id="quizOptions"></div>
+                <div class="quiz-actions">
+                    <button onclick="generateQuiz()" class="practice-button">新しい問題</button>
+                    <button onclick="showHint()" class="hint-button" id="hintButton" style="display: none;">💡 ヒント</button>
+                    <button onclick="showSolution()" class="solution-button" id="solutionButton" style="display: none;">📚 解法を見る</button>
+                </div>
+            </div>
+            
+            <div id="quizHint" class="quiz-hint" style="display: none;"></div>
+            <div id="quizResult" class="quiz-result" style="display: none;"></div>
+            
+            <div class="practice-tips">
+                <h3>📝 練習のコツ</h3>
+                <ul>
+                    <li><strong>基礎から順番に：</strong> 基礎レベルをマスターしてから次に進みましょう</li>
+                    <li><strong>ヒント活用：</strong> 分からない時はヒント機能を使ってください</li>
+                    <li><strong>解法理解：</strong> 正解だけでなく、解法も理解することが重要です</li>
+                    <li><strong>反復練習：</strong> 同じレベルを繰り返し解くことで定着します</li>
+                </ul>
+            </div>
+        </div>
+          <!-- 用語集タブ -->
+        <div id="glossary" class="tab-content">
+            <h2>用語集</h2>
+            
+            <div class="explanation-box">
+                <h3>IPアドレス (Internet Protocol Address)</h3>
+                <p>インターネット上でデバイスを識別するためのユニークな番号。IPv4では32ビット（4バイト）で構成される。</p>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>🏠 プライベートIPアドレスのクラス分類</h3>
+                <p><strong>プライベートIPアドレス</strong>は、内部ネットワークで使用される特別なアドレス範囲で、3つのクラスに分けられます：</p>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #f8f9fa; border-radius: 8px;">
+                    <h4 style="color: #28a745; margin-top: 0;">📊 Class A (大規模ネットワーク)</h4>
+                    <strong>アドレス範囲：</strong> 10.0.0.0 ～ 10.255.255.255<br>
+                    <strong>デフォルトマスク：</strong> 255.0.0.0 (/8)<br>
+                    <strong>ネットワーク数：</strong> 1個の巨大ネットワーク<br>
+                    <strong>ホスト数：</strong> 約1,677万台<br>
+                    <strong>用途：</strong> 大企業や組織の基幹ネットワーク<br>
+                    <strong>例：</strong> 10.1.1.100, 10.50.200.1
+                </div>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #fff3cd; border-radius: 8px;">
+                    <h4 style="color: #856404; margin-top: 0;">🏫 Class B (中規模ネットワーク)</h4>
+                    <strong>アドレス範囲：</strong> 172.16.0.0 ～ 172.31.255.255<br>
+                    <strong>デフォルトマスク：</strong> 255.240.0.0 (/12)<br>
+                    <strong>ネットワーク数：</strong> 16個のネットワーク<br>
+                    <strong>ホスト数：</strong> 約104万台（各ネットワーク）<br>
+                    <strong>用途：</strong> 中規模企業や学校のネットワーク<br>
+                    <strong>例：</strong> 172.16.10.1, 172.25.100.50
+                </div>
+                
+                <div style="margin: 15px 0; padding: 15px; background: #cce5ff; border-radius: 8px;">
+                    <h4 style="color: #004085; margin-top: 0;">🏠 Class C (小規模ネットワーク)</h4>
+                    <strong>アドレス範囲：</strong> 192.168.0.0 ～ 192.168.255.255<br>
+                    <strong>デフォルトマスク：</strong> 255.255.0.0 (/16)<br>
+                    <strong>ネットワーク数：</strong> 256個のネットワーク<br>
+                    <strong>ホスト数：</strong> 約6万5千台（各ネットワーク）<br>
+                    <strong>用途：</strong> 家庭用ルーター、小規模オフィス<br>
+                    <strong>例：</strong> 192.168.1.1, 192.168.100.10
+                </div>
+                
+                <p style="margin-top: 15px; color: #666; font-style: italic;">
+                    <strong>💡 重要ポイント：</strong> これらのアドレスは内部ネットワーク専用で、インターネット上では使用されません。<br>
+                    そのため、世界中の異なる場所で同じプライベートIPアドレスが使われても問題ありません。
+                </p>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>🌐 パブリックIPアドレス vs プライベートIPアドレス</h3>
+                <div class="calculation-grid">
+                    <div class="calc-item" style="background: #d1ecf1; border-left: 4px solid #17a2b8;">
+                        <strong>🌍 パブリックIPアドレス</strong><br>
+                        • インターネット上でユニーク<br>
+                        • ISP（プロバイダー）から割り当て<br>
+                        • 外部からアクセス可能<br>
+                        • 有限で管理されている
+                    </div>
+                    <div class="calc-item" style="background: #e8f5e8; border-left: 4px solid #28a745;">
+                        <strong>🏠 プライベートIPアドレス</strong><br>
+                        • 内部ネットワーク専用<br>
+                        • 自由に使用可能<br>
+                        • NATで外部通信<br>
+                        • 各ネットワークで重複可能
+                    </div>
+                </div>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>サブネットマスク (Subnet Mask)</h3>
+                <p>IPアドレスのネットワーク部とホスト部を区別するためのマスク。ドット記法（255.255.255.0）やCIDR記法（/24）で表現される。</p>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>ネットワークアドレス (Network Address)</h3>
+                <p>サブネット全体を識別するアドレス。ホスト部がすべて0のアドレス。</p>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>ブロードキャストアドレス (Broadcast Address)</h3>
+                <p>サブネット内のすべてのデバイスにデータを送信するためのアドレス。ホスト部がすべて1のアドレス。</p>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>CIDR (Classless Inter-Domain Routing)</h3>
+                <p>プレフィックス長（/24など）でサブネットマスクを表現する方法。数字はネットワーク部のビット数を示す。</p>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>🔄 特殊なIPアドレス</h3>
+                <p>
+                    <strong>127.x.x.x：</strong> ループバックアドレス（自分自身を指す、テスト用）<br>
+                    <strong>169.254.x.x：</strong> リンクローカル（APIPA、DHCP取得失敗時の自動割り当て）<br>
+                    <strong>224.x.x.x～239.x.x.x：</strong> マルチキャストアドレス（一対多通信）<br>
+                    <strong>0.0.0.0：</strong> デフォルトルート、すべてのネットワーク<br>
+                    <strong>255.255.255.255：</strong> 限定ブロードキャスト
+                </p>
+            </div>
+            
+            <div class="explanation-box">
+                <h3>プライベートIPアドレス</h3>
+                <p>内部ネットワークで使用されるIPアドレス。インターネットには直接接続されない。<br>
+                例：10.0.0.0/8、172.16.0.0/12、192.168.0.0/16</p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; <span id="currentYear"></span> IP Explorer</p>    <footer>
+        <p>&copy; <span id="currentYear"></span> IP Explorer</p>
+    </footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>

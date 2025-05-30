@@ -1,0 +1,765 @@
+/* IPv4 学習ツール - スタイルシート */
+
+/* 基本スタイル */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #333;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    backdrop-filter: blur(10px);
+}
+
+/* タブナビゲーション */
+.tabs {
+    display: flex;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 30px;
+    gap: 0;
+}
+
+.tab {
+    padding: 12px 24px;
+    background: #f8f9fa;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #666;
+    border-radius: 8px 8px 0 0;
+    margin-right: 5px;
+    transition: all 0.3s ease;
+}
+
+.tab.active {
+    background: #007bff;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.tab:hover:not(.active) {
+    background: #e9ecef;
+    color: #333;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* ヘッダーとタイトル */
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2.2em;
+    font-weight: 600;
+}
+
+.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 1.1em;
+}
+
+/* ヘルプアイコンとツールチップ */
+.help-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: #17a2b8;
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    cursor: help;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.tooltip {
+    position: relative;
+}
+
+.tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+/* 説明ボックス */
+.explanation-box {
+    background: #e8f4f8;
+    border-left: 4px solid #17a2b8;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ステップインジケーター */
+.step-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.step {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 0 5px;
+    background: #f8f9fa;
+    border: 2px solid #dee2e6;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.step.completed {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.step.active {
+    background: #cce5ff;
+    border-color: #007bff;
+    color: #004085;
+    font-weight: bold;
+}
+
+.step.locked {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* レッスンコンテンツ */
+.lesson-content {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.lesson-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ボタンスタイル */
+.next-step-button {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.next-step-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40,167,69,0.4);
+}
+
+input[type="submit"], button {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+input[type="submit"]:hover, button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.4);
+}
+
+.practice-button {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    box-shadow: 0 2px 8px rgba(40,167,69,0.3);
+}
+
+.practice-button:hover {
+    box-shadow: 0 4px 12px rgba(40,167,69,0.4);
+}
+
+/* 次の問題ボタンのスタイル */
+.next-quiz-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.next-quiz-btn:hover {
+    background: linear-gradient(135deg, #218838, #1ba085);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* ヒント表示エリアのスタイル */
+.hint-content {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 1px solid #ffeeba;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 15px 0;
+    color: #856404;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* インタラクティブデモ */
+.interactive-demo {
+    background: #fff;
+    border: 2px solid #007bff;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.demo-input {
+    padding: 10px;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 16px;
+    margin: 5px;
+    width: 120px;
+}
+
+.demo-result {
+    background: #e8f4f8;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border-left: 4px solid #17a2b8;
+}
+
+/* フォーム要素 */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"] {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 16px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* 結果表示 */
+.results {
+    margin-top: 25px;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.results h2 {
+    margin-top: 0;
+    color: #007bff;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+.results p {
+    margin: 10px 0;
+    line-height: 1.7;
+    font-size: 15px;
+}
+
+.results strong {
+    color: #333;
+    min-width: 180px;
+    display: inline-block;
+}
+
+.visual-representation {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    border: 1px solid #dee2e6;
+}
+
+/* IP視覚化 */
+.ip-visualization {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.ip-octet {
+    background: #007bff;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    min-width: 60px;
+    margin: 5px;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+.network-part {
+    background: #28a745;
+    color: white;
+}
+
+.host-part {
+    background: #ffc107;
+    color: #333;
+}
+
+.mixed-part {
+    background: linear-gradient(90deg, #28a745 50%, #ffc107 50%);
+    color: white;
+}
+
+/* ビット視覚化スタイル */
+.bit-visualization {
+    font-family: 'Courier New', Monaco, monospace;
+}
+
+.network-bit {
+    background: #28a745 !important;
+    color: white !important;
+}
+
+.host-bit {
+    background: #ffc107 !important;
+    color: white !important;
+}
+
+/* 改良されたIPアドレス視覚化 */
+.ip-visualization .ip-octet {
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.ip-visualization .ip-octet:hover {
+    transform: scale(1.05);
+    border-color: #007bff;
+}
+
+.ip-visualization .mixed-part {
+    position: relative;
+    overflow: hidden;
+}
+
+.ip-visualization .mixed-part::after {
+    content: '混合';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 1px 4px;
+    border-radius: 2px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.ip-visualization .mixed-part:hover::after {
+    opacity: 1;
+}
+
+/* 計算結果グリッド */
+.calculation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.calc-item {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+}
+
+/* クイズスタイル */
+.quiz-container {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.quiz-question {
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #856404;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.quiz-option {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 6px;
+    padding: 15px;
+    margin: 10px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.quiz-option:hover {
+    border-color: #007bff;
+    background: #f8f9fa;
+}
+
+.quiz-option.correct {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+}
+
+.quiz-option.incorrect {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+}
+
+.quiz-option.correct::after {
+    content: "✓";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #28a745;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.quiz-option.incorrect::after {
+    content: "✗";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #dc3545;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* 練習問題タブの拡張スタイル */
+.practice-level-selector {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    border: 1px solid #e9ecef;
+}
+
+.level-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.level-button {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.level-button:hover {
+    border-color: #007bff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,123,255,0.15);
+}
+
+.level-button.active {
+    background: #007bff;
+    color: white;
+    border-color: #0056b3;
+}
+
+.level-button small {
+    display: block;
+    margin-top: 5px;
+    opacity: 0.8;
+    font-size: 12px;
+}
+
+.quiz-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    background: #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+}
+
+.quiz-level-display {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.quiz-number {
+    font-size: 14px;
+    color: #666;
+}
+
+.quiz-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.hint-button {
+    background: #ffc107;
+    color: #333;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.hint-button:hover {
+    background: #e0a800;
+}
+
+.solution-button {
+    background: #17a2b8;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.solution-button:hover {
+    background: #138496;
+}
+
+.quiz-hint {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 15px;
+    border-left: 4px solid #ffc107;
+}
+
+.quiz-result {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.practice-tips {
+    background: #d1ecf1;
+    border: 1px solid #bee5eb;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.practice-tips h3 {
+    margin-top: 0;
+    color: #0c5460;
+}
+
+.practice-tips ul {
+    margin-bottom: 0;
+}
+
+.practice-tips li {
+    margin-bottom: 8px;
+}
+
+/* フッター */
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    font-size: 0.9em;
+    color: #666;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .calculation-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .ip-visualization {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .step-indicator {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        margin-bottom: 5px;
+    }
+    
+    .level-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .quiz-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .quiz-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .quiz-actions {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.8em;
+    }
+    
+    .demo-input {
+        width: 80px;
+        font-size: 14px;
+    }
+    
+    .ip-octet {
+        padding: 10px;
+        min-width: 50px;
+        font-size: 14px;
+    }
+}
